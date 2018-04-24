@@ -1,6 +1,6 @@
 package com.host.core.service.validator;
 
-import com.host.config.Config;
+import com.host.config.AppConfig;
 import com.host.core.model.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import java.util.HashSet;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Config.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class UserValidatorServiceTest implements TestHelper<User> {
     @Autowired
     private UserValidatorService validatorService;
