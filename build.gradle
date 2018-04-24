@@ -15,10 +15,18 @@ dependencies {
     testCompile 'org.assertj:assertj-core:3.9.0'
     testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.4.3'
 
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.2.0'
+
     compile group: 'org.springframework', name: 'spring-context', version: '5.0.5.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.5.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.5.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version: '5.0.5.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '5.0.5.RELEASE'
+
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
 
     compile group: 'org.glassfish', name: 'javax.el', version: '3.0.1-b10'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.16.Final'
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.9.Final'
 
 }
