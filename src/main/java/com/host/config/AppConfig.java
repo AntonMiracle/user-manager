@@ -4,11 +4,12 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 
 
+@Import({RepositoryConfig.class})
 @Configuration
-//@Import({RepositoryConfig.class})
 @ComponentScan("com.host")
 public class AppConfig {
     @Bean
