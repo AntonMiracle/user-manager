@@ -1,22 +1,28 @@
 package com.host.core.service.validator;
 
+import com.host.config.Config;
 import com.host.core.model.User;
-import com.host.core.service.validator.impl.UserValidatorServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Config.class)
 public class UserValidatorServiceTest implements TestHelper<User> {
+    @Autowired
     private UserValidatorService validatorService;
     private User user;
 
     @Before
     public void before() {
-        validatorService = new UserValidatorServiceImpl();
         user = new User();
     }
 
