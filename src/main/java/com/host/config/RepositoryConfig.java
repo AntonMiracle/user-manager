@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.util.Properties;
 
 @Configuration
@@ -16,8 +17,8 @@ import java.util.Properties;
 public class RepositoryConfig {
     @Value("${jdbc.driverClassName}")
     private String driverClassName;
-    @Value("${jdbc.url}")
-    private String url;
+    @Value("${jdbc.dbname}")
+    private String dbName;
     @Value("${jdbc.username}")
     private String username;
     @Value("${jdbc.password}")
@@ -30,11 +31,21 @@ public class RepositoryConfig {
     @Value("${hibernate.hbm2ddl.auto}")
     private String hibernateHbm2ddlAuto;
 
+
+    private String getUrl() {
+        StringBuilder url = new StringBuilder("\"jdbc:h2:file:.\"");
+        url.append(File.separator).append("src");
+        url.append(File.separator).append("main");
+        url.append(File.separator).append("resources");
+        url.append(File.separator).append(dbName);
+        return url.toString();
+    }
+
     @Bean()
     public BasicDataSource getDataSource() {
         BasicDataSource bds = new BasicDataSource();
         bds.setDriverClassName(driverClassName);
-        bds.setUrl(url);
+        bds.setUrl(getUrl());
         bds.setUsername(username);
         bds.setPassword(password);
         bds.setInitialSize(1);
