@@ -20,7 +20,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         user = new User();
     }
 
-    private String idField = getField(User.class, "id");
+    private String idField = checkFieldName(User.class, "id");
 
     @Test
     public void idLessThanOneInvalid() throws NoSuchFieldException, IllegalAccessException {
@@ -29,7 +29,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         assertThat(count == 1).isTrue();
     }
 
-    private String usernameField = getField(User.class, "username");
+    private String usernameField = checkFieldName(User.class, "username");
 
     @Test
     public void usernameWithNullInvalid() {
@@ -80,7 +80,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         assertThat(count == 1).isTrue();
     }
 
-    private String passwordField = getField(User.class, "password");
+    private String passwordField = checkFieldName(User.class, "password");
 
     @Test
     public void passwordWithNullInvalid() {
@@ -131,7 +131,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         assertThat(count == 1).isTrue();
     }
 
-    private String firstNameField = getField(User.class, "firstName");
+    private String firstNameField = checkFieldName(User.class, "firstName");
 
     @Test
     public void firstNameWithNullInvalid() {
@@ -175,7 +175,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         assertThat(count == 1).isTrue();
     }
 
-    private String lastNameField = getField(User.class, "lastName");
+    private String lastNameField = checkFieldName(User.class, "lastName");
 
     @Test
     public void lastNameWithNullInvalid() {
@@ -219,7 +219,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         assertThat(count == 1).isTrue();
     }
 
-    private String birthDayField = getField(User.class, "birthDay");
+    private String birthDayField = checkFieldName(User.class, "birthDay");
 
     @Test
     public void birthDayWithNullInvalid() {
@@ -243,7 +243,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         assertThat(count == 1).isTrue();
     }
 
-    private String groupsField = getField(User.class, "groups");
+    private String groupsField = checkFieldName(User.class, "groups");
 
     @Test
     public void groupsWithNullInvalid() {

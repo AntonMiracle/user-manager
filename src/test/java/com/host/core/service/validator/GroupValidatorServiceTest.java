@@ -19,7 +19,7 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
         group = new Group();
     }
 
-    private String nameField = getField(Group.class, "name");
+    private String nameField = checkFieldName(Group.class, "name");
 
     @Test
     public void nameWithNullInvalid() {
@@ -56,7 +56,7 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
         assertThat(count == 0).isTrue();
     }
 
-    private String usersField = getField(Group.class, "users");
+    private String usersField = checkFieldName(Group.class, "users");
 
     @Test
     public void usersWithNullInvalid() {
@@ -65,7 +65,7 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
         assertThat(count == 1).isTrue();
     }
 
-    private String idField = getField(Group.class, "id");
+    private String idField = checkFieldName(Group.class, "id");
 
     @Test
     public void idLessThanOneInvalid() throws NoSuchFieldException, IllegalAccessException {

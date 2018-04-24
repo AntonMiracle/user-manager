@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Set;
 
-public class Group implements Serializable {
+public class Group implements Serializable, CoreModel {
     @NotNull
     @Pattern(regexp = "^[a-z]{4,15}$")
     private String name;

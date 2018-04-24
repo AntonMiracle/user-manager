@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class User implements Serializable {
+public class User implements Serializable, CoreModel {
     @NotNull
     @Pattern(regexp = "^[A-Za-z]{4,15}$")
     private String username;
