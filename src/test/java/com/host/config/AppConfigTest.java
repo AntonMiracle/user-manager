@@ -1,5 +1,7 @@
 package com.host.config;
 
+import com.host.core.dao.GroupDAO;
+import com.host.core.dao.UserDAO;
 import com.host.core.service.GroupService;
 import com.host.core.service.UserService;
 import com.host.core.service.validator.GroupValidatorService;
@@ -7,14 +9,15 @@ import com.host.core.service.validator.UserValidatorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Config.class)
-public class ConfigTest {
+@ContextConfiguration(classes = AppConfig.class)
+public class AppConfigTest {
     @Autowired
     private GroupValidatorService groupVS;
     @Autowired
@@ -23,6 +26,12 @@ public class ConfigTest {
     private GroupService groupService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserDAO userDAO;
+    @Autowired
+    private GroupDAO groupDAO;
+    @Autowired
+    private PropertyPlaceholderConfigurer properties ;
 
     @Test
     public void injectDependencyGroupValidatorService() {
@@ -43,4 +52,20 @@ public class ConfigTest {
     public void injectDependencyUserService() {
         assertThat(userService).isNotNull();
     }
+    @Test
+    public void injectDependencyGroupDAO() {
+        assertThat(groupDAO).isNotNull();
+    }
+
+    @Test
+    public void injectDependencyUserDAO() {
+        assertThat(userDAO).isNotNull();
+    }
+
+    @Test
+    public void injectDependencyProperties() {
+        assertThat(properties).isNotNull();
+    }
+
+
 }
