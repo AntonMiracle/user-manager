@@ -33,7 +33,7 @@ public class RepositoryConfig {
 
 
     private String getUrl() {
-        StringBuilder url = new StringBuilder("\"jdbc:h2:file:.\"");
+        StringBuilder url = new StringBuilder("jdbc:h2:file:.");
         url.append(File.separator).append("src");
         url.append(File.separator).append("main");
         url.append(File.separator).append("resources");
