@@ -104,7 +104,7 @@ public interface TestHelper<T extends CoreModel> {
         user.setLastName("last");
         user.setFirstName("First");
         user.setUsername(username);
-        user.setPassword("Password2");
+        user.setPassword("Pass2Wword2");
         return user;
     }
 

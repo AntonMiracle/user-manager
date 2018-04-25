@@ -4,7 +4,6 @@ import com.host.core.dao.GroupDAO;
 import com.host.core.model.Group;
 import com.host.core.service.GroupService;
 import com.host.core.service.validator.GroupValidatorService;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,18 +21,15 @@ public class GroupServiceImpl implements GroupService {
     private GroupValidatorService groupValidator;
 
     @Override
-    public Group find(Long id) throws NotFoundException, IllegalArgumentException {
-        if (id == null) throw new IllegalArgumentException("Id is null");
-        Group group = groupDAO.find(id);
-        if (group == null) throw new NotFoundException("No Group with id=" + id.toString());
-        return group;
+    public Group find(Long id) {
+        if (id == null) return null;
+        return groupDAO.find(id);
     }
 
     @Override
-    public Group find(String uniqueName) throws NotFoundException, IllegalArgumentException {
-        if (uniqueName == null) throw new IllegalArgumentException("UniqueName is null");
-        if (isExist(uniqueName)) return groupDAO.find(uniqueName);
-        throw new NotFoundException("No Group with UniqueName=" + uniqueName);
+    public Group find(String uniqueName) {
+        if (uniqueName == null) return null;
+        return groupDAO.find(uniqueName);
     }
 
     @Override
@@ -44,40 +40,44 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group save(Group model) throws IllegalStateException, IllegalArgumentException {
-        if (model == null) throw new IllegalArgumentException("Group is null");
-        if (model.getUsers() == null) model.setUsers(new HashSet<>());
-        if (!groupValidator.isValid(model)) throw new IllegalStateException(groupValidator.convertToString(model));
+    public Group save(Group model) {
+        if (model == null) return null;
+        if (!validate(model)) return null;
         if (isExist(model.getName())) return update(model);
         return groupDAO.save(model);
     }
 
     @Override
-    public Group update(Group model) throws IllegalStateException, IllegalArgumentException {
-        if (model == null) throw new IllegalArgumentException("Group is null");
-        if (model.getUsers() == null) model.setUsers(new HashSet<>());
-        if (!groupValidator.isValid(model)) throw new IllegalStateException(groupValidator.convertToString(model));
+    public Group update(Group model) {
+        if (model == null) return null;
+        if (!validate(model)) return null;
         if (isNameUnique(model.getName())) return save(model);
         return groupDAO.update(model);
     }
 
     @Override
-    public boolean delete(Long deleteId) throws IllegalArgumentException {
-        if (deleteId == null) throw new IllegalArgumentException("Id is null");
+    public boolean delete(Long deleteId) {
+        if (deleteId == null) return false;
         if (groupDAO.find(deleteId) == null) return false;
         return groupDAO.delete(deleteId);
     }
 
     @Override
-    public boolean isNameUnique(String groupName) throws IllegalArgumentException {
-        if (groupName == null) throw new IllegalArgumentException("GroupName is null");
+    public boolean validate(Group model) {
+        if (model == null) return false;
+        if (model.getUsers() == null) model.setUsers(new HashSet<>());
+        return groupValidator.isValid(model);
+    }
+
+    @Override
+    public boolean isNameUnique(String groupName) {
+        if (groupName == null) return false;
         return groupDAO.find(groupName) == null;
     }
 
     @Override
-    public boolean isExist(String groupName) throws IllegalArgumentException {
-        if (groupName == null) throw new IllegalArgumentException("GroupName is null");
+    public boolean isExist(String groupName) {
+        if (groupName == null) return false;
         return !isNameUnique(groupName);
     }
-
 }

@@ -45,32 +45,32 @@ public class GroupServiceTest implements TestHelper<Group> {
         deleteGroupsForTests(groupDAO);
         deleteUsersForTests(userDAO);
     }
+    // find ---------------------------
 
     @Test
-    public void findGroupById() throws NotFoundException {
+    public void findGroupById() {
         group = groupService.save(createGroupForTest(name1));
         assertThat(groupService.find(group.getId())).isNotNull();
     }
 
-    // find ---------------------------
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenFindGroupByIdWithNullThenThrowIAE() throws NotFoundException {
-        groupService.find((Long) null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void whenFindGroupByNameWithNullThenThrowIAE() throws NotFoundException {
-        groupService.find((String) null);
-    }
-
-    @Test(expected = NotFoundException.class)
-    public void whenFindGroupByNotExistingIdThenThrowNFE() throws NotFoundException {
-        groupService.find(-10L);
+    @Test
+    public void findGroupByIdWithNullReturnNull() {
+        assertThat(groupService.find((Long) null)).isNull();
     }
 
     @Test
-    public void findGroupByName() throws NotFoundException {
+    public void findGroupByNameWithNullReturnNull() {
+        assertThat(groupService.find((String) null)).isNull();
+    }
+
+    @Test
+    public void findGroupByNotExistingIdReturnNull() {
+        assertThat(groupService.find(-10L)).isNull();
+    }
+
+    @Test
+    public void findGroupByName() {
         groupService.save(createGroupForTest(name1));
         assertThat(groupService.find(name1)).isNotNull();
     }
@@ -83,31 +83,31 @@ public class GroupServiceTest implements TestHelper<Group> {
 
     // save ---------------------------
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenSaveGroupWithNullThenThrowIAE() {
-        groupService.save(null);
+    @Test
+    public void saveGroupWithNullReturnNull() {
+        assertThat(groupService.save(null)).isNull();
     }
 
     @Test
-    public void saveGroup() throws NotFoundException {
+    public void saveGroup() {
         groupService.save(createGroupForTest(name1));
         assertThat(groupService.find(name1)).isNotNull();
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void whenSaveInvalidGroupThenThrowISE() {
-        groupService.save(new Group());
+    @Test
+    public void saveInvalidGroupReturnNull() {
+        assertThat(groupService.save(new Group())).isNull();
     }
 
     // update ---------------------------
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenUpdateGroupWithNullThenThrowIAE() {
-        groupService.update(null);
+    @Test
+    public void updateGroupWithNullReturnNull() {
+        assertThat(groupService.update(null)).isNull();
     }
 
     @Test
-    public void updateGroupName() throws NotFoundException {
+    public void updateGroupName() {
         assertThat(groupService.isExist(name1)).isFalse();
 
         group = groupService.save(createGroupForTest(name1));
@@ -117,16 +117,16 @@ public class GroupServiceTest implements TestHelper<Group> {
         assertThat(groupService.find(name2).getName()).isEqualTo(name2);
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void whenUpdateInvalidGroupThenThrowISE() {
-        groupService.update(new Group());
+    @Test
+    public void updateInvalidGroupReturnNull() {
+        assertThat(groupService.update(new Group())).isNull();
     }
 
     // delete ---------------------------
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenDeleteWithNullThenThrowIAE() {
-        groupService.delete(null);
+    @Test
+    public void deleteWithNullReturnFalse() {
+        assertThat(groupService.delete(null)).isFalse();
     }
 
     @Test
@@ -139,9 +139,9 @@ public class GroupServiceTest implements TestHelper<Group> {
 
     // isExist ---------------------------
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenIsExistWithNullThenThrowIAE() {
-        groupService.isExist(null);
+    @Test
+    public void isExistWithNullReturnFalse() {
+        assertThat(groupService.isExist(null)).isFalse();
     }
 
     @Test
