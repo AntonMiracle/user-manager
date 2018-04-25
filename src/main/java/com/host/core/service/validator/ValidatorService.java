@@ -57,15 +57,16 @@ public interface ValidatorService<T extends CoreModel> {
      */
     void trimFields(T type);
 
-    default Map<String, String> convertToMap(Set<ConstraintViolation<T>> errors) {
+    default Map<String, String> convertToMap(T model) {
+        Set<ConstraintViolation<T>> errors = validate(model);
         Map<String, String> result = new HashMap<>();
         errors.forEach(error -> result.put(error.getPropertyPath().toString(), error.getInvalidValue().toString()));
         return result;
     }
 
-    default String convertToString(Set<ConstraintViolation<T>> errors) {
+    default String convertToString(T model) {
         StringBuilder text = new StringBuilder();
-        Map<String, String> result = convertToMap(errors);
+        Map<String, String> result = convertToMap(model);
         result.keySet().forEach(key -> text.append(key + "=" + result.get(key) + " "));
         return text.toString();
     }
