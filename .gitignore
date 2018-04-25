@@ -31,3 +31,7 @@ settings.gradle
 build
 doc
 
+# database
+UMDatasource.mv.db
+UMDatasource.trace.mv.db
+
