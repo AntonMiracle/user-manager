@@ -7,12 +7,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class UserDAOImpl implements UserDAO {
     @Autowired
     private SessionFactory sessionFactory;
@@ -43,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
     public User save(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
+        session.flush();
         return user;
     }
 
