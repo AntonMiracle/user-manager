@@ -20,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class GroupDAOTest {
     @Autowired
     private GroupDAO groupDAO;
+
     private Group group;
     private String name1 = "n1";
     private String name2 = "n2";
