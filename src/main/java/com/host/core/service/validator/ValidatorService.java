@@ -52,4 +52,8 @@ public interface ValidatorService<T extends CoreModel> {
      * @param type where need to trim fields
      */
     void trimFields(T type);
+
+    default String getFieldAndValueSeparator() {
+        return "=";
+    }
 }
