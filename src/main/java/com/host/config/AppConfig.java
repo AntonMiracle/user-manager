@@ -18,4 +18,6 @@ public class AppConfig {
         ppc.setLocation(new ClassPathResource("app.properties"));
         return ppc;
     }
+
+
 }
