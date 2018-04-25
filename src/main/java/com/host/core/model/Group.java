@@ -17,7 +17,7 @@ public class Group implements Serializable, CoreModel {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[a-z]{4,15}$")
+    @Pattern(regexp = "^[A-Za-z0-9]{2,15}$")
     @Column(name = "NAME", nullable = false, unique = true, length = 15)
     private String name;
 

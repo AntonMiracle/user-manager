@@ -35,8 +35,8 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
     }
 
     @Test
-    public void nameWithLengthLessThan4Invalid() {
-        group.setName("nam");
+    public void nameWithLengthLessThan2Invalid() {
+        group.setName("n");
         long count = countConstraintViolation(validatorService, group, nameField);
         assertThat(count == 1).isTrue();
     }
@@ -49,10 +49,10 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
     }
 
     @Test
-    public void nameWithAtLeastOneUpperCaseSymbolInvalid() {
-        group.setName("Admin");
+    public void nameWithAtLeastOneUpperCaseSymbolAndNumberValid() {
+        group.setName("Admin2");
         long count = countConstraintViolation(validatorService, group, nameField);
-        assertThat(count == 1).isTrue();
+        assertThat(count == 0).isTrue();
     }
 
     @Test
