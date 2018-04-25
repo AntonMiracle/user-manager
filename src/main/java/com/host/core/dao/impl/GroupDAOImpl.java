@@ -21,14 +21,14 @@ public class GroupDAOImpl implements GroupDAO {
     @Override
     public Group find(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Groups as groups where groups.id = '" + id.toString() + "'");
+        Query query = session.createQuery("from Group as group where group.id = '" + id.toString() + "'");
         return (Group) query.uniqueResult();
     }
 
     @Override
     public Set<Group> find() {
         Session session = sessionFactory.getCurrentSession();
-        Set<Group> groups = (Set<Group>) session.createQuery("from Groups").getResultStream().collect(Collectors.toCollection(HashSet::new));
+        Set<Group> groups = (Set<Group>) session.createQuery("from Group").getResultStream().collect(Collectors.toCollection(HashSet::new));
         return groups;
     }
 
@@ -41,9 +41,10 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     @Override
-    public Group add(Group group) {
+    public Group save(Group group) {
         Session session = sessionFactory.getCurrentSession();
         session.save(group);
+        session.flush();
         return group;
     }
 
@@ -58,7 +59,7 @@ public class GroupDAOImpl implements GroupDAO {
     @Override
     public Group find(String name) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Groups as groups where groups.name = '" + name + "'");
+        Query query = session.createQuery("from Group as group where group.name = '" + name + "'");
         return (Group) query.uniqueResult();
     }
 }
