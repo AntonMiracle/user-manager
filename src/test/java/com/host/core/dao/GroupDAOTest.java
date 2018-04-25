@@ -2,6 +2,7 @@ package com.host.core.dao;
 
 import com.host.config.AppConfig;
 import com.host.core.model.Group;
+import org.assertj.core.api.Java6Assertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,11 @@ public class GroupDAOTest {
     public void before() {
         group = new Group();
         deleteGroupsForTests();
+    }
+
+    @Test
+    public void injectDependencyUserDAO() {
+        Java6Assertions.assertThat(groupDAO).isNotNull();
     }
 
     @After
