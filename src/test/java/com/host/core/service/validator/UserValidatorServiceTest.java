@@ -1,6 +1,7 @@
 package com.host.core.service.validator;
 
 import com.host.config.AppConfig;
+import com.host.core.TestHelper;
 import com.host.core.model.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +38,13 @@ public class UserValidatorServiceTest implements TestHelper<User> {
 
     private String usernameField = checkFieldName(User.class, "username");
 
+    @Test
+    public void usernamesForTestingValid() {
+        user.setUsername(getForTestUsername1());
+        assertThat(countConstraintViolation(validatorService, user, usernameField) == 0).isTrue();
+        user.setUsername(getForTestUsername2());
+        assertThat(countConstraintViolation(validatorService, user, usernameField) == 0).isTrue();
+    }
     @Test
     public void usernameWithNullInvalid() {
         user.setUsername(null);
