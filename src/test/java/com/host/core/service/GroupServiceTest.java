@@ -53,7 +53,6 @@ public class GroupServiceTest implements TestHelper<Group> {
         assertThat(groupService.find(group.getId())).isNotNull();
     }
 
-
     @Test
     public void findGroupByIdWithNullReturnNull() {
         assertThat(groupService.find((Long) null)).isNull();
