@@ -16,6 +16,8 @@ import java.util.Set;
  * @version 0.1
  */
 public interface ValidatorService<T extends CoreModel> {
+    String SEPARATOR = "=";
+
     /**
      * Validate type
      *
@@ -53,7 +55,4 @@ public interface ValidatorService<T extends CoreModel> {
      */
     void trimFields(T type);
 
-    default String getFieldAndValueSeparator() {
-        return "=";
-    }
 }
