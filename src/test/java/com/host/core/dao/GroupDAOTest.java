@@ -53,12 +53,12 @@ public class GroupDAOTest {
         groupDAO.save(createGroup(name2));
 
         assertThat(groupDAO.find(name1)).isNotNull();
-        assertThat(groupDAO.find(name1)).isNotNull();
+        assertThat(groupDAO.find(name2)).isNotNull();
 
         deleteGroupsForTests();
 
         assertThat(groupDAO.find(name1)).isNull();
-        assertThat(groupDAO.find(name1)).isNull();
+        assertThat(groupDAO.find(name2)).isNull();
     }
 
     @Test
