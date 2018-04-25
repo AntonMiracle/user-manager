@@ -60,11 +60,13 @@ public interface ValidatorService<T extends CoreModel> {
     default Map<String, String> convertToMap(T model) {
         Set<ConstraintViolation<T>> errors = validate(model);
         Map<String, String> result = new HashMap<>();
+        if (result.size() == 0) return result;
         errors.forEach(error -> result.put(error.getPropertyPath().toString(), error.getInvalidValue().toString()));
         return result;
     }
 
     default String convertToString(T model) {
+        if (model == null) return "";
         StringBuilder text = new StringBuilder();
         Map<String, String> result = convertToMap(model);
         if (result.size() > 0) text.append("Invalid model : ");
