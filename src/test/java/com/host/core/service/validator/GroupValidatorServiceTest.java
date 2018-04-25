@@ -1,6 +1,7 @@
 package com.host.core.service.validator;
 
 import com.host.config.AppConfig;
+import com.host.core.TestHelper;
 import com.host.core.model.Group;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +42,13 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
         assertThat(count == 1).isTrue();
     }
 
+    @Test
+    public void groupnamesForTestingValid() {
+        group.setName(getForTestGroupname1());
+        assertThat(countConstraintViolation(validatorService, group, nameField) == 0).isTrue();
+        group.setName(getForTestGroupname2());
+        assertThat(countConstraintViolation(validatorService, group, nameField) == 0).isTrue();
+    }
     @Test
     public void nameWithLengthMoreThan15Invalid() {
         group.setName("nameenameenameeR");
