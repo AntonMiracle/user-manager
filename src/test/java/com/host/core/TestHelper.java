@@ -69,19 +69,19 @@ public interface TestHelper<T extends CoreModel> {
         field.set(where, id);
     }
 
-    default String getUsername1() {
+    default String getForTestUsername1() {
         return "uf";
     }
 
-    default String getUsername2() {
+    default String getForTestUsername2() {
         return "us";
     }
 
-    default String getGroupname1() {
+    default String getForTestGroupname1() {
         return "gf";
     }
 
-    default String getGroupname2() {
+    default String getForTestGroupname2() {
         return "gs";
     }
 
