@@ -6,6 +6,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -55,4 +57,16 @@ public interface ValidatorService<T extends CoreModel> {
      */
     void trimFields(T type);
 
+    default Map<String, String> convertToMap(Set<ConstraintViolation<T>> errors) {
+        Map<String, String> result = new HashMap<>();
+        errors.forEach(error -> result.put(error.getPropertyPath().toString(), error.getInvalidValue().toString()));
+        return result;
+    }
+
+    default String convertToString(Set<ConstraintViolation<T>> errors) {
+        StringBuilder text = new StringBuilder();
+        Map<String, String> result = convertToMap(errors);
+        result.keySet().forEach(key -> text.append(key + "=" + result.get(key) + " "));
+        return text.toString();
+    }
 }
