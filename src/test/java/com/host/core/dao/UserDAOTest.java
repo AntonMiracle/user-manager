@@ -2,6 +2,7 @@ package com.host.core.dao;
 
 import com.host.config.AppConfig;
 import com.host.config.Initialized;
+import com.host.core.TestHelper;
 import com.host.core.model.Group;
 import com.host.core.model.User;
 import org.junit.After;
@@ -23,19 +24,21 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
 @Transactional
-public class UserDAOTest {
+public class UserDAOTest implements TestHelper<User> {
     @Autowired
     private UserDAO userDAO;
     @Autowired
     private GroupDAO groupDAO;
 
     private User user;
-    private String username1 = "uo";
-    private String username2 = "us";
+    private String username1;
+    private String username2;
 
     @Before
     public void before() {
         user = new User();
+        username1 = getForTestUsername1();
+        username2 = getForTestUsername2();
         deleteUsersForTests();
     }
 

@@ -29,8 +29,8 @@ public class GroupDAOTest implements TestHelper<Group> {
     @Before
     public void before() {
         group = new Group();
-        name1 = getGroupname1();
-        name2 = getGroupname2();
+        name1 = getForTestGroupname1();
+        name2 = getForTestGroupname2();
         deleteGroupsForTests();
     }
 
