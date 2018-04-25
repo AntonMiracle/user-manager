@@ -31,7 +31,7 @@ public class GroupDAOTest implements TestHelper<Group> {
         group = new Group();
         name1 = getForTestGroupname1();
         name2 = getForTestGroupname2();
-        deleteGroupsForTests();
+        deleteGroupsForTests(groupDAO);
     }
 
     @Test
@@ -41,13 +41,13 @@ public class GroupDAOTest implements TestHelper<Group> {
 
     @After
     public void after() {
-        deleteGroupsForTests();
+        deleteGroupsForTests(groupDAO);
     }
 
-    private void deleteGroupsForTests() {
-        if (groupDAO.find(name1) != null) groupDAO.delete(groupDAO.find(name1).getId());
-        if (groupDAO.find(name2) != null) groupDAO.delete(groupDAO.find(name2).getId());
-    }
+//    private void deleteGroupsForTests() {
+//        if (groupDAO.find(name1) != null) groupDAO.delete(groupDAO.find(name1).getId());
+//        if (groupDAO.find(name2) != null) groupDAO.delete(groupDAO.find(name2).getId());
+//    }
 
     @Test
     public void groupWithNameUserInitialized() {
@@ -62,7 +62,7 @@ public class GroupDAOTest implements TestHelper<Group> {
         assertThat(groupDAO.find(name1)).isNotNull();
         assertThat(groupDAO.find(name2)).isNotNull();
 
-        deleteGroupsForTests();
+        deleteGroupsForTests(groupDAO);
 
         assertThat(groupDAO.find(name1)).isNull();
         assertThat(groupDAO.find(name2)).isNull();

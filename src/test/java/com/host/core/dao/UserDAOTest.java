@@ -31,12 +31,12 @@ public class UserDAOTest implements TestHelper<User> {
         user = new User();
         username1 = getForTestUsername1();
         username2 = getForTestUsername2();
-        deleteUsersForTests();
+        deleteUsersForTests(userDAO);
     }
 
     @After
     public void after() {
-        deleteUsersForTests();
+        deleteUsersForTests(userDAO);
     }
 
     @Test
@@ -99,15 +99,10 @@ public class UserDAOTest implements TestHelper<User> {
         assertThat(userDAO.find(username1)).isNotNull();
         assertThat(userDAO.find(username2)).isNotNull();
 
-        deleteUsersForTests();
+        deleteUsersForTests(userDAO);
 
         assertThat(userDAO.find(username1)).isNull();
         assertThat(userDAO.find(username2)).isNull();
-    }
-
-    private void deleteUsersForTests() {
-        if (userDAO.find(username1) != null) userDAO.delete(userDAO.find(username1).getId());
-        if (userDAO.find(username2) != null) userDAO.delete(userDAO.find(username2).getId());
     }
 
 }

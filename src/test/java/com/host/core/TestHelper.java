@@ -1,6 +1,8 @@
 package com.host.core;
 
 import com.host.config.Initialized;
+import com.host.core.dao.GroupDAO;
+import com.host.core.dao.UserDAO;
 import com.host.core.model.CoreModel;
 import com.host.core.model.Group;
 import com.host.core.model.User;
@@ -111,6 +113,16 @@ public interface TestHelper<T extends CoreModel> {
         group.setName(name);
         group.setUsers(new HashSet<>());
         return group;
+    }
+
+    default void deleteGroupsForTests(GroupDAO dao) {
+        if (dao.find(getForTestGroupname1()) != null) dao.delete(dao.find(getForTestGroupname1()).getId());
+        if (dao.find(getForTestGroupname2()) != null) dao.delete(dao.find(getForTestGroupname2()).getId());
+    }
+
+    default void deleteUsersForTests(UserDAO dao) {
+        if (dao.find(getForTestUsername1()) != null) dao.delete(dao.find(getForTestUsername1()).getId());
+        if (dao.find(getForTestUsername2()) != null) dao.delete(dao.find(getForTestUsername2()).getId());
     }
 
 }
