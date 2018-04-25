@@ -24,8 +24,8 @@ public class User implements Serializable, CoreModel {
     private String username;
 
     @NotNull
-    @Pattern(regexp = "^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,16})$")
-    @Column(name = "PASSWORD", nullable = false, length = 256)
+    @Pattern(regexp = "^[^\\h]{6,64}$")
+    @Column(name = "PASSWORD", nullable = false, length = 64)
     private String password;
 
     @NotNull
@@ -102,6 +102,7 @@ public class User implements Serializable, CoreModel {
         this.id = id;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

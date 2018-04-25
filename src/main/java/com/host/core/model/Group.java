@@ -45,6 +45,7 @@ public class Group implements Serializable, CoreModel {
         this.id = id;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
