@@ -1,6 +1,7 @@
 package com.host.core.dao;
 
 import com.host.config.AppConfig;
+import com.host.config.Initialized;
 import com.host.core.model.Group;
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 
@@ -31,7 +31,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void injectDependencyGroupDAO() {
         assertThat(groupDAO).isNotNull();
     }
@@ -47,7 +46,11 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
+    public void groupWithNameUserInitialized() {
+        assertThat(groupDAO.find(Initialized.GROUP_NAME_USER)).isNotNull();
+    }
+
+    @Test
     public void deleteTestingGroup() {
         groupDAO.save(createGroup(name1));
         groupDAO.save(createGroup(name2));
@@ -62,7 +65,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void saveGroup() {
         group = groupDAO.save(createGroup(name1));
 
@@ -71,7 +73,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void deleteGroup() {
         group = createGroup(name1);
         groupDAO.save(group);
@@ -81,7 +82,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void findGroupById() {
         groupDAO.save(createGroup(name1));
         group = groupDAO.find(name1);
@@ -91,7 +91,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void findAllGroups() {
         int size = groupDAO.find().size();
 
@@ -102,7 +101,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void findGroupByName() {
         groupDAO.save(createGroup(name1));
         group = groupDAO.find(name1);
@@ -112,7 +110,6 @@ public class GroupDAOTest {
     }
 
     @Test
-    @Transactional
     public void updateGroup() {
         assertThat(groupDAO.find(name1)).isNull();
         assertThat(groupDAO.find(name2)).isNull();

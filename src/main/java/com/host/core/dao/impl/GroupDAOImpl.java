@@ -8,12 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class GroupDAOImpl implements GroupDAO {
     @Autowired
     private SessionFactory sessionFactory;
@@ -62,4 +65,5 @@ public class GroupDAOImpl implements GroupDAO {
         Query query = session.createQuery("from Group as group where group.name = '" + name + "'");
         return (Group) query.uniqueResult();
     }
+
 }
