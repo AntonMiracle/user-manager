@@ -67,6 +67,7 @@ public interface ValidatorService<T extends CoreModel> {
     default String convertToString(T model) {
         StringBuilder text = new StringBuilder();
         Map<String, String> result = convertToMap(model);
+        if (result.size() > 0) text.append("Invalid model : ");
         result.keySet().forEach(key -> text.append(key + "=" + result.get(key) + " "));
         return text.toString();
     }
