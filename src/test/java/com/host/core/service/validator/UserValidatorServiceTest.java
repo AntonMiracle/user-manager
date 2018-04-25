@@ -45,6 +45,7 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         user.setUsername(getForTestUsername2());
         assertThat(countConstraintViolation(validatorService, user, usernameField) == 0).isTrue();
     }
+
     @Test
     public void usernameWithNullInvalid() {
         user.setUsername(null);
@@ -111,8 +112,8 @@ public class UserValidatorServiceTest implements TestHelper<User> {
     }
 
     @Test
-    public void passwordWithLengthMoreThan16Invalid() {
-        user.setPassword("pasS4wordpasswordD");
+    public void passwordWithLengthMoreThan64Invalid() {
+        user.setPassword("pasS4wordpassworpasS4wordpassworpasS4wordpassworpasS4wordpassworG");
         long count = countConstraintViolation(validatorService, user, passwordField);
         assertThat(count == 1).isTrue();
     }
@@ -122,13 +123,6 @@ public class UserValidatorServiceTest implements TestHelper<User> {
         user.setPassword("PassWord4");
         long count = countConstraintViolation(validatorService, user, passwordField);
         assertThat(count == 0).isTrue();
-    }
-
-    @Test
-    public void passwordWithoutAtLeastOneUpperCaseSymbolAndNumberInvalid() {
-        user.setPassword("password");
-        long count = countConstraintViolation(validatorService, user, passwordField);
-        assertThat(count == 1).isTrue();
     }
 
     @Test
