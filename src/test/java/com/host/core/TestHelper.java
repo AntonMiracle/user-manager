@@ -91,6 +91,26 @@ public interface TestHelper<T extends CoreModel> {
         return "gs";
     }
 
+    default User createUserForTest(String username) {
+        Set<Group> groups = new HashSet<>();
+        Group group = new Group();
+        group.setName(Initialized.GROUP_NAME_USER);
 
+        User user = new User();
+        user.setGroups(groups);
+        user.setBirthDay(LocalDate.now().minusDays(100));
+        user.setLastName("last");
+        user.setFirstName("First");
+        user.setUsername(username);
+        user.setPassword("Password2");
+        return user;
+    }
+
+    default Group createGroupForTest(String name) {
+        Group group = new Group();
+        group.setName(name);
+        group.setUsers(new HashSet<>());
+        return group;
+    }
 
 }

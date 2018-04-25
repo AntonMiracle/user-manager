@@ -49,6 +49,7 @@ public class GroupValidatorServiceTest implements TestHelper<Group> {
         group.setName(getForTestGroupname2());
         assertThat(countConstraintViolation(validatorService, group, nameField) == 0).isTrue();
     }
+
     @Test
     public void nameWithLengthMoreThan15Invalid() {
         group.setName("nameenameenameeR");

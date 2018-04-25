@@ -1,9 +1,7 @@
 package com.host.core.dao;
 
 import com.host.config.AppConfig;
-import com.host.config.Initialized;
 import com.host.core.TestHelper;
-import com.host.core.model.Group;
 import com.host.core.model.User;
 import org.junit.After;
 import org.junit.Before;
@@ -13,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -116,18 +110,4 @@ public class UserDAOTest implements TestHelper<User> {
         if (userDAO.find(username2) != null) userDAO.delete(userDAO.find(username2).getId());
     }
 
-    private User createUserForTest(String username) {
-        Set<Group> groups = new HashSet<>();
-        Group group = new Group();
-        group.setName(Initialized.GROUP_NAME_USER);
-
-        User user = new User();
-        user.setGroups(groups);
-        user.setBirthDay(LocalDate.now().minusDays(100));
-        user.setLastName("last");
-        user.setFirstName("First");
-        user.setUsername(username);
-        user.setPassword("Password2");
-        return user;
-    }
 }

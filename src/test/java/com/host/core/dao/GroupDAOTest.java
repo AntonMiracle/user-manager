@@ -13,8 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -133,10 +131,4 @@ public class GroupDAOTest implements TestHelper<Group> {
         assertThat(groupDAO.find(name2)).isNotNull();
     }
 
-    private Group createGroupForTest(String name) {
-        Group group = new Group();
-        group.setName(name);
-        group.setUsers(new HashSet<>());
-        return group;
-    }
 }
