@@ -16,4 +16,6 @@ public interface CoreModelService<T> {
     boolean delete(Long deleteId);
 
     boolean validate(T model);
+
+    boolean remove(Long removeId, Long fromId);
 }
