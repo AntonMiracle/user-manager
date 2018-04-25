@@ -12,6 +12,12 @@ import java.util.Set;
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable, CoreModel {
+    @DecimalMin("1.0")
+    @Id
+    @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull
     @Pattern(regexp = "^[A-Za-z]{4,15}$")
     @Column(name = "USERNAME", nullable = false, unique = true, length = 15)
@@ -38,16 +44,11 @@ public class User implements Serializable, CoreModel {
     private LocalDate birthDay;
 
     @NotNull
-    @ManyToMany (cascade = {CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable (name = "USER_GROUP", joinColumns = {@JoinColumn (name = "USER_ID")}, inverseJoinColumns = {
-            @JoinColumn (name = "GROUP_ID")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "USER_GROUP",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
     private Set<Group> groups;
-
-    @DecimalMin("1.0")
-    @Id
-    @Column (name = "USER_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     public void setUsername(String username) {
         this.username = username;
