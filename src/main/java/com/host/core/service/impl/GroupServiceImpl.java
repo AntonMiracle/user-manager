@@ -1,10 +1,8 @@
 package com.host.core.service.impl;
 
 import com.host.core.dao.GroupDAO;
-import com.host.core.dao.UserDAO;
 import com.host.core.model.Group;
 import com.host.core.service.GroupService;
-import com.host.core.service.UserService;
 import com.host.core.service.validator.GroupValidatorService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +15,9 @@ import java.util.Set;
 @Service
 @Transactional
 public class GroupServiceImpl implements GroupService {
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private GroupDAO groupDAO;
-    @Autowired
-    private UserDAO userDAO;
     @Autowired
     private GroupValidatorService groupValidator;
 
