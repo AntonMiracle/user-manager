@@ -2,9 +2,9 @@ package com.host.core.service.validator.impl;
 
 import com.host.core.model.Group;
 import com.host.core.service.validator.GroupValidatorService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class GroupValidatorServiceImpl implements GroupValidatorService {
     @Override
     public void trimFields(Group object) {
