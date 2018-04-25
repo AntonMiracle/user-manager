@@ -1,6 +1,7 @@
-package com.host.core.service.validator;
+package com.host.core;
 
 import com.host.core.model.CoreModel;
+import com.host.core.service.validator.ValidatorService;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -67,5 +68,22 @@ public interface TestHelper<T extends CoreModel> {
         field.setAccessible(true);
         field.set(where, id);
     }
+
+    default String getUsername1() {
+        return "uf";
+    }
+
+    default String getUsername2() {
+        return "us";
+    }
+
+    default String getGroupname1() {
+        return "gf";
+    }
+
+    default String getGroupname2() {
+        return "gs";
+    }
+
 
 }
