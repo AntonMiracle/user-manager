@@ -27,8 +27,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class UserDAOTest implements TestHelper<User> {
     @Autowired
     private UserDAO userDAO;
-    @Autowired
-    private GroupDAO groupDAO;
 
     private User user;
     private String username1;
@@ -50,39 +48,38 @@ public class UserDAOTest implements TestHelper<User> {
     @Test
     public void injectDependencyAvailable() {
         assertThat(userDAO).isNotNull();
-        assertThat(groupDAO).isNotNull();
     }
 
     @Test
     public void findAllUsers() {
         int size = userDAO.find().size();
-        userDAO.save(createUser(username2));
-        userDAO.save(createUser(username1));
+        userDAO.save(createUserForTest(username2));
+        userDAO.save(createUserForTest(username1));
         assertThat(userDAO.find().size()).isEqualTo(size + 2);
     }
 
     @Test
     public void findUserById() {
-        user = userDAO.save(createUser(username1));
+        user = userDAO.save(createUserForTest(username1));
         assertThat(user.getId()).isNotNull();
         assertThat(userDAO.find(user.getId()).getId()).isEqualTo(user.getId());
     }
 
     @Test
     public void findUserByUsername() {
-        userDAO.save(createUser(username1));
+        userDAO.save(createUserForTest(username1));
         assertThat(userDAO.find(username1).getUsername()).isEqualTo(username1);
     }
 
     @Test
     public void saveUser() {
-        userDAO.save(createUser(username1));
+        userDAO.save(createUserForTest(username1));
         assertThat(userDAO.find(username1)).isNotNull();
     }
 
     @Test
     public void updateUser() {
-        user = userDAO.save(createUser(username1));
+        user = userDAO.save(createUserForTest(username1));
         user.setUsername(username2);
         userDAO.update(user);
         assertThat(userDAO.find(username1)).isNull();
@@ -91,7 +88,7 @@ public class UserDAOTest implements TestHelper<User> {
 
     @Test
     public void deleteUser() {
-        user = userDAO.save(createUser(username1));
+        user = userDAO.save(createUserForTest(username1));
         assertThat(user).isNotNull();
         userDAO.delete(user.getId());
         assertThat(userDAO.find(username1)).isNull();
@@ -102,8 +99,8 @@ public class UserDAOTest implements TestHelper<User> {
         assertThat(userDAO.find(username1)).isNull();
         assertThat(userDAO.find(username2)).isNull();
 
-        userDAO.save(createUser(username1));
-        userDAO.save(createUser(username2));
+        userDAO.save(createUserForTest(username1));
+        userDAO.save(createUserForTest(username2));
 
         assertThat(userDAO.find(username1)).isNotNull();
         assertThat(userDAO.find(username2)).isNotNull();
@@ -119,9 +116,10 @@ public class UserDAOTest implements TestHelper<User> {
         if (userDAO.find(username2) != null) userDAO.delete(userDAO.find(username2).getId());
     }
 
-    private User createUser(String username) {
+    private User createUserForTest(String username) {
         Set<Group> groups = new HashSet<>();
-        groups.add(groupDAO.find(Initialized.GROUP_NAME_USER));
+        Group group = new Group();
+        group.setName(Initialized.GROUP_NAME_USER);
 
         User user = new User();
         user.setGroups(groups);

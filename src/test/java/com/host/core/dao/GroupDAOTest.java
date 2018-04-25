@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 
@@ -18,6 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
+@Transactional
 public class GroupDAOTest implements TestHelper<Group> {
     @Autowired
     private GroupDAO groupDAO;
@@ -56,8 +58,8 @@ public class GroupDAOTest implements TestHelper<Group> {
 
     @Test
     public void deleteTestingGroup() {
-        groupDAO.save(createGroup(name1));
-        groupDAO.save(createGroup(name2));
+        groupDAO.save(createGroupForTest(name1));
+        groupDAO.save(createGroupForTest(name2));
 
         assertThat(groupDAO.find(name1)).isNotNull();
         assertThat(groupDAO.find(name2)).isNotNull();
@@ -69,8 +71,8 @@ public class GroupDAOTest implements TestHelper<Group> {
     }
 
     @Test
-    public void saveGroup() {
-        group = groupDAO.save(createGroup(name1));
+    public void saveGroupWithNoUsers() {
+        group = groupDAO.save(createGroupForTest(name1));
 
         assertThat(group.getId()).isNotNull();
         assertThat(group.getName()).isEqualTo(name1);
@@ -78,7 +80,7 @@ public class GroupDAOTest implements TestHelper<Group> {
 
     @Test
     public void deleteGroup() {
-        group = createGroup(name1);
+        group = createGroupForTest(name1);
         groupDAO.save(group);
 
         assertThat(group.getId()).isNotNull();
@@ -87,7 +89,7 @@ public class GroupDAOTest implements TestHelper<Group> {
 
     @Test
     public void findGroupById() {
-        groupDAO.save(createGroup(name1));
+        groupDAO.save(createGroupForTest(name1));
         group = groupDAO.find(name1);
 
         assertThat(group.getId()).isNotNull();
@@ -98,15 +100,15 @@ public class GroupDAOTest implements TestHelper<Group> {
     public void findAllGroups() {
         int size = groupDAO.find().size();
 
-        groupDAO.save(createGroup(name1));
-        groupDAO.save(createGroup(name2));
+        groupDAO.save(createGroupForTest(name1));
+        groupDAO.save(createGroupForTest(name2));
 
         assertThat(groupDAO.find().size()).isEqualTo(size + 2);
     }
 
     @Test
     public void findGroupByName() {
-        groupDAO.save(createGroup(name1));
+        groupDAO.save(createGroupForTest(name1));
         group = groupDAO.find(name1);
 
         assertThat(group).isNotNull();
@@ -118,7 +120,7 @@ public class GroupDAOTest implements TestHelper<Group> {
         assertThat(groupDAO.find(name1)).isNull();
         assertThat(groupDAO.find(name2)).isNull();
 
-        groupDAO.save(createGroup(name1));
+        groupDAO.save(createGroupForTest(name1));
 
         assertThat(groupDAO.find(name1)).isNotNull();
         assertThat(groupDAO.find(name2)).isNull();
@@ -131,7 +133,7 @@ public class GroupDAOTest implements TestHelper<Group> {
         assertThat(groupDAO.find(name2)).isNotNull();
     }
 
-    private Group createGroup(String name) {
+    private Group createGroupForTest(String name) {
         Group group = new Group();
         group.setName(name);
         group.setUsers(new HashSet<>());
