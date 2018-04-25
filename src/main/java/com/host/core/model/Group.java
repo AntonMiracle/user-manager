@@ -68,4 +68,13 @@ public class Group implements Serializable, CoreModel {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
+                '}';
+    }
 }

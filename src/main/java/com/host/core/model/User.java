@@ -133,4 +133,17 @@ public class User implements Serializable, CoreModel {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDay=" + birthDay +
+                ", groups=" + groups +
+                '}';
+    }
 }
