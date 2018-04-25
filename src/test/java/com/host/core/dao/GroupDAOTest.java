@@ -31,7 +31,7 @@ public class GroupDAOTest {
     }
 
     @Test
-    public void injectDependencyGroupDAO() {
+    public void injectDependencyAvailable() {
         assertThat(groupDAO).isNotNull();
     }
 
