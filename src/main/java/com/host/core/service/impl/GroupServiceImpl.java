@@ -2,6 +2,7 @@ package com.host.core.service.impl;
 
 import com.host.core.dao.GroupDAO;
 import com.host.core.model.Group;
+import com.host.core.model.User;
 import com.host.core.service.GroupService;
 import com.host.core.service.validator.GroupValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,24 @@ public class GroupServiceImpl implements GroupService {
         if (model == null) return false;
         if (model.getUsers() == null) model.setUsers(new HashSet<>());
         return groupValidator.isValid(model);
+    }
+
+    @Override
+    public boolean remove(Long removeId, Long fromId) {
+        if (removeId == null || fromId == null) return false;
+        if (find(fromId) == null) return false;
+        Group group = find(fromId);
+        User removeUser = null;
+        for (User user : group.getUsers()) {
+            if (user.getId().equals(removeId)) {
+                removeUser = user;
+                break;
+            }
+        }
+        if (removeUser == null) return false;
+        boolean result = group.getUsers().remove(removeUser);
+        if (result) update(group);
+        return result;
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.host.core.TestHelper;
 import com.host.core.dao.GroupDAO;
 import com.host.core.dao.UserDAO;
 import com.host.core.model.Group;
-import javassist.NotFoundException;
+import com.host.core.model.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +23,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class GroupServiceTest implements TestHelper<Group> {
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private UserDAO userDAO;
     @Autowired
@@ -45,6 +47,7 @@ public class GroupServiceTest implements TestHelper<Group> {
         deleteGroupsForTests(groupDAO);
         deleteUsersForTests(userDAO);
     }
+
     // find ---------------------------
 
     @Test
@@ -129,7 +132,7 @@ public class GroupServiceTest implements TestHelper<Group> {
     }
 
     @Test
-    public void deleteGroupById() throws NotFoundException {
+    public void deleteGroupById() {
         group = groupService.save(createGroupForTest(name1));
         assertThat(groupService.find(name1)).isNotNull();
         groupService.delete(group.getId());
@@ -144,8 +147,23 @@ public class GroupServiceTest implements TestHelper<Group> {
     }
 
     @Test
-    public void isExist() {
+    public void isExistReturnFalse() {
         groupService.save(createGroupForTest(name1));
         assertThat(groupService.isExist(name1)).isTrue();
+    }
+
+    // remove ---------------------------
+
+    @Test
+    public void removeUserFromGroup() {
+        User user = userService.save(createUserForTest(getForTestUsername1()));
+
+        group = groupService.save(createGroupForTest(name1));
+        group.getUsers().add(user);
+        groupService.update(group);
+
+        assertThat(group.getUsers().size()).isEqualTo(1);
+        assertThat(groupService.remove(user.getId(), group.getId())).isTrue();
+        assertThat(groupService.find(name1).getUsers().size()).isEqualTo(0);
     }
 }
