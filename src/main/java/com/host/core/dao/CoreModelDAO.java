@@ -11,7 +11,7 @@ public interface CoreModelDAO<T extends CoreModel> {
 
     boolean delete(Long id);
 
-    T add(T object);
+    T save(T object);
 
     T update(T object);
 }
