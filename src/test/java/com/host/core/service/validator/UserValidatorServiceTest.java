@@ -45,8 +45,8 @@ public class UserValidatorServiceTest implements TestHelper<User> {
     }
 
     @Test
-    public void usernameWithLengthLessThan4Invalid() {
-        user.setUsername("use");
+    public void usernameWithLengthLessThan2Invalid() {
+        user.setUsername("u");
         long count = countConstraintViolation(validatorService, user, usernameField);
         assertThat(count == 1).isTrue();
     }
