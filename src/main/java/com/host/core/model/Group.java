@@ -7,11 +7,13 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Set;
 
+@Entity
+@Table(name = "GROUPS")
 public class Group implements Serializable, CoreModel {
     @DecimalMin("1.0")
     @Id
     @Column(name = "GROUP_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
