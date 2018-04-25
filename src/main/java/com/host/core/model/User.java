@@ -1,5 +1,6 @@
 package com.host.core.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -8,25 +9,44 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
+@Entity
+@Table(name = "USERS")
 public class User implements Serializable, CoreModel {
     @NotNull
     @Pattern(regexp = "^[A-Za-z]{4,15}$")
+    @Column(name = "USERNAME", nullable = false, unique = true, length = 15)
     private String username;
+
     @NotNull
     @Pattern(regexp = "^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,16})$")
+    @Column(name = "PASSWORD", nullable = false, length = 256)
     private String password;
+
     @NotNull
     @Pattern(regexp = "^[A-Za-z]{0,15}$")
+    @Column(name = "FIRST_NAME", nullable = false, length = 15)
     private String firstName;
+
     @NotNull
     @Pattern(regexp = "^[A-Za-z]{0,20}$")
+    @Column(name = "LAST_NAME", nullable = false, length = 20)
     private String lastName;
+
     @NotNull
     @Past
+    @Column(name = "BIRTHDAY", nullable = false, length = 10)
     private LocalDate birthDay;
+
     @NotNull
+    @ManyToMany (cascade = {CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable (name = "USER_GROUP", joinColumns = {@JoinColumn (name = "USER_ID")}, inverseJoinColumns = {
+            @JoinColumn (name = "GROUP_ID")})
     private Set<Group> groups;
+
     @DecimalMin("1.0")
+    @Id
+    @Column (name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public void setUsername(String username) {

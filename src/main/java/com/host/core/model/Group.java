@@ -1,5 +1,6 @@
 package com.host.core.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,10 +10,19 @@ import java.util.Set;
 public class Group implements Serializable, CoreModel {
     @NotNull
     @Pattern(regexp = "^[a-z]{4,15}$")
+    @Column(name = "NAME", nullable = false, unique = true, length = 15)
     private String name;
+
     @NotNull
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable (name = "USER_GROUP", joinColumns = {@JoinColumn (name = "GROUP_ID")}, inverseJoinColumns = {
+            @JoinColumn (name = "USER_ID")})
     private Set<User> users;
+
     @DecimalMin("1.0")
+    @Id
+    @Column (name = "GROUP_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public void setName(String name) {
