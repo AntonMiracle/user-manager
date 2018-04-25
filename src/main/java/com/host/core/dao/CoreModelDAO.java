@@ -1,8 +1,10 @@
 package com.host.core.dao;
 
+import com.host.core.model.CoreModel;
+
 import java.util.Set;
 
-public interface CoreModelDAO<T> {
+public interface CoreModelDAO<T extends CoreModel> {
     T find(Long id);
 
     Set<T> find();
