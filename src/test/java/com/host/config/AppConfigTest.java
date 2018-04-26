@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes =AppConfig.class)
+@WebAppConfiguration
 public class AppConfigTest {
     @Autowired
     private GroupValidatorService groupVS;

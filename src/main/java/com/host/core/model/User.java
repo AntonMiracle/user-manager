@@ -19,7 +19,7 @@ public class User implements Serializable, CoreModel {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[A-Za-z]{2,15}$")
+    @Pattern(regexp = "^[A-Za-z0-9]{2,15}$")
     @Column(name = "USERNAME", nullable = false, unique = true, length = 15)
     private String username;
 

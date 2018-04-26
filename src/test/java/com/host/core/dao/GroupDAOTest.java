@@ -11,12 +11,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
+@WebAppConfiguration
 @Transactional
 public class GroupDAOTest implements TestHelper<Group> {
     @Autowired
@@ -43,11 +45,6 @@ public class GroupDAOTest implements TestHelper<Group> {
     public void after() {
         deleteGroupsForTests(groupDAO);
     }
-
-//    private void deleteGroupsForTests() {
-//        if (groupDAO.find(name1) != null) groupDAO.delete(groupDAO.find(name1).getId());
-//        if (groupDAO.find(name2) != null) groupDAO.delete(groupDAO.find(name2).getId());
-//    }
 
     @Test
     public void groupWithNameUserInitialized() {

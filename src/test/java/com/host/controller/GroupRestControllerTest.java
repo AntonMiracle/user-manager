@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
+@WebAppConfiguration
 public class GroupRestControllerTest implements TestHelper<Group> {
     @Autowired
     private GroupRestController groupController;

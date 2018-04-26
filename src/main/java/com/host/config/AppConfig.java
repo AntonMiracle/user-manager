@@ -6,10 +6,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @Import({RepositoryConfig.class})
 @Configuration
+@EnableWebMvc
 @ComponentScan("com.host")
 public class AppConfig {
     @Bean
@@ -18,6 +20,4 @@ public class AppConfig {
         ppc.setLocation(new ClassPathResource("app.properties"));
         return ppc;
     }
-
-
 }

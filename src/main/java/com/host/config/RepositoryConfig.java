@@ -62,7 +62,7 @@ public class RepositoryConfig {
         LocalSessionFactoryBean sfb = new LocalSessionFactoryBean();
         sfb.setDataSource(dataSource);
         sfb.setHibernateProperties(getHibernateProperties());
-        sfb.setPackagesToScan("com.host.core.model");
+        sfb.setPackagesToScan("com.host");
         return sfb;
     }
 

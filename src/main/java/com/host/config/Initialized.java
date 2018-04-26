@@ -30,7 +30,7 @@ public class Initialized implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         initUserGroup();
 //        generationTestUsers(20);
-//        generationTestGroups(10);
+        generationTestGroups(10);
     }
 
     private void initUserGroup() {
@@ -42,25 +42,27 @@ public class Initialized implements InitializingBean {
         }
     }
 
+
     private void generationTestUsers(int number) {
         for (int i = 0; i < number; ++i) {
             User user = new User();
-            user.setUsername("username" + String.valueOf((char) i));
+            user.setUsername("username" + i);
             user.setBirthDay(LocalDate.now().minusDays(100 * (i + 1)));
             user.setPassword("password");
-            user.setGroups(new HashSet<>());
-            user.setLastName("lastName" + String.valueOf((char) i));
-            user.setFirstName("FirstName" + String.valueOf((char) i));
+            user.setLastName("lastName" + i);
+            user.setFirstName("FirstName" + i);
             Set<Group> groups = new HashSet<>();
-            groups.add(groupDAO.find(GROUP_NAME_USER));
+            groups.add(groupService.find(GROUP_NAME_USER));
+            user.setGroups(groups);
             userService.save(user);
         }
     }
 
+
     private void generationTestGroups(int number) {
         for (int i = 0; i < number; ++i) {
             Group group = new Group();
-            group.setName("Name" + String.valueOf((char) i));
+            group.setName("Name" + i);
             group.setUsers(new HashSet<>());
             groupDAO.save(group);
         }
