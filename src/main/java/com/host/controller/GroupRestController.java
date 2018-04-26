@@ -1,4 +1,6 @@
 package com.host.controller;
 
-public interface GroupRestController extends CoreModelRestController {
+import com.host.core.model.Group;
+
+public interface GroupRestController extends CoreModelRestController<Group> {
 }

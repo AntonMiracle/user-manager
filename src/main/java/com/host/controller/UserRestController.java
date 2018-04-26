@@ -1,5 +1,7 @@
 package com.host.controller;
 
-public interface UserRestController extends CoreModelRestController {
+import com.host.core.model.User;
+
+public interface UserRestController extends CoreModelRestController<User> {
 
 }
