@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +21,21 @@ public class GroupRestControllerImpl implements GroupRestController {
     private GroupService groupService;
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Group>> getAll() {
         Set<Group> result = groupService.find();
         if (result == null) return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         List<Group> list = result.stream().collect(Collectors.toCollection(ArrayList::new));
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<Group[]> test() {
+        Group[] result = groupService.find().stream().toArray(Group[]::new);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
     @Override
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json")

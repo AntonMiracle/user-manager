@@ -79,8 +79,9 @@ public class GroupServiceTest implements TestHelper<Group> {
 
     @Test
     public void findAllGroups() {
+        int size = groupService.find().size();
         groupService.save(createGroupForTest(name1));
-        assertThat(groupService.find().size()).isEqualTo(2);
+        assertThat(groupService.find().size()).isEqualTo(size + 1);
     }
 
     // save ---------------------------
